@@ -15,5 +15,9 @@ def IntroductionPage():
 def TheoryPage():
     return render_template('Theory.html')
 
+@app.route("/Experiment")
+def ExperimentPage():
+    return render_template('Experiment.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

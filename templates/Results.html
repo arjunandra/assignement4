@@ -5,15 +5,190 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
+<style>
+.space{
+    color: white;
+}
+.container{
+    text-align: center;
+}
+.celebrate,.badscore{
+    display: none;
+}
+.histo{
+    text-align: left;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.scoredisplay{
+    /* background-color: rgb(250, 237, 237); */
+    border-bottom: 7px solid lightgreen;
+    border-left: 10px solid lightgreen;
+    /* padding-top: 10px; */
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    padding-left: 10px;
+    overflow: auto;
+}
+.scoredisplayu{
+    text-align: right;
+    border-top-left-radius: 15px;
+    padding-left: 10px;
+    width: 21%;
+    border: 0px solid white;
+    padding-right: 0px;
+    background-color: #eee;
+}
+.list-group-horizontal{
+    text-align: center;
+}
+.zeroPointer{
+    font-size: 30px;
+    font-weight: bold;
+}
+.nul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #444;
+}
+.nli{
+    float: left;
+    color:lightyellow;
+}
+.nli a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+li a:hover{
+    background-color: red;
+    opacity: 1;
+}
+.leftp{
+    float: right;
+}
+body{
+    background-color: #eee;
+}
+/* .sticky{
+    position: fixed;
+    width: 100%;
+} */
+</style>
 <body>
-    
+    <nav class="sticky">
+        <ul class="nul">
+            <li class="nli"><a>Homepage</a></li>
+            <li class="nli"><a id="about">Quizpage</a></li>
+            <li class="nli leftp"><a>Go back</a></li>
+            <li></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1 class="space"> <br></h1>
+        <h1>You Scored : {{ tscore }} &nbsp;</h1>
+        <h2 class="celebrate">That is awesome!! you scored above average!!</h2>
+        <h2 class="badscore">Could do better...</h2>
+        <h2> Average score: <span id="averageScore"></span></h2>
+        <hr>
+        <h2>Detailed report: </h2>
+        <hr>
+    </div>
+    <div class="container histo">
+        <h2>Histogram showing distribution of scores : </h2>
+        <div class="list-group-item scoredisplayu">Zero is at <span class="zeroPointer">&DownArrow;</span></div>
+        {% for i in range(11) %}
+            <div class="list-group-item scoredisplay" id="score{{i}}">score: {{i}} => {{ histoData[i] }}</div>
+        {% endfor %}
+    </div>
+    <hr>
+    <div class="container last10">
+        <ul class="list-group list-group-horizontal">
+        <li class="list-group-item">Last 10 Scores: </li>
+        {% for i in range(15) %}
+            <li class="list-group-item">{{scores[-(1+i)]}}</li>
+        {% endfor %}
+    </div>
+
+    <div class="container calcPerc">
+        <h1><br></h1>
+        <h2>Calculated Percentile: <span id="percentile"></span></h2>
+        <button type="button" class="btn btn-success">Return to Topic</button>
+        <h1><br></h1>
+    </div>
+    <nav class="sticky">
+        <ul class="nul">
+            <li class="nli"><a>Homepage</a></li>
+            <li class="nli"><a>Quizpage</a></li>
+            <li class="nli leftp"><a>Go back</a></li>
+            <li></li>
+        </ul>
+    </nav>
 </body>
 <script>
-    var score= {{ tscore }};
-    var scores= {{ scores }}
+// Utility functions
+    range = function(a){
+        arr=[];
+        for(let i=0;i<a;i++) arr.push(i); 
+        return arr;        
+    }
+    const celebrate = document.querySelectorAll('.celebrate');
+    const badscore  = document.querySelectorAll('.badscore');
+    const scoreDisplay = document.querySelectorAll('scoredisplay');
+    const score= {{ tscore }};
+    const scores= {{ scores }}
+    const histoData = {{histoData}};
+    var Total=0
+    var TotalLess=0
+    var maxWidth = histoData.reduce((a, b) => Math.max(a, b) );
+
     console.log(score);
     console.log(scores);
     console.log('works fine!!!');
+    console.log(maxWidth);
+    let sum=0; 
+    scores.forEach(i=>sum+=i);
+    const avg = parseInt(sum/scores.length);
+// end of utility functions 
+
+// initial basic style modifications 
+    document.querySelector('#averageScore').innerHTML=avg;
+    console.log('average is '+avg);
+    if(score>=avg){
+        document.querySelectorAll('.celebrate').forEach(ele=>ele.style.display="block");
+    } else {
+        document.querySelectorAll('.badscore').forEach(ele=>ele.style.display="block");
+    }
+// end of basic style modifications
+
+// histogram
+    var histoW=[]
+    range(11).forEach(i=>histoW.push((80*histoData[i])/maxWidth + 20));
+    range(11).forEach(i=>{
+        let tempRow = document.querySelector('#score'+i);
+        if(i>score){
+            tempRow.style.borderColor="lightpink";
+        } else{
+            TotalLess+=histoData[i];
+        }
+        Total+=histoData[i];
+        if(i==score){
+            tempRow.style.borderColor="hotpink";
+            let temptext = tempRow.innerHTML;
+            tempRow.innerHTML=temptext+' [YOUR SCORE] '
+        }
+        tempRow.style.width=histoW[i]+'%';
+    });
+
+// end of histogram
+// Calculated Total 
+    document.querySelector('#percentile').innerHTML=((TotalLess*100)/Total) + ' %ile';
+// end of Calculated Total
 </script>
 </html>

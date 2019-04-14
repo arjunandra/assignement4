@@ -60,7 +60,14 @@ def FeedbackPage():
 
 @app.route("/Results")
 def ResultPage():
-    return render_template('Results.html', tscore=QuizResults.query.all()[-1], scores=QuizResults.query.all())
+    histodata=[0,0,0,0,0,0,0,0,0,0,0]
+    for i in QuizResults.query.all():
+        if int(str(i))>=0 and int(str(i))<=10:
+            histodata[int(str(i))]+=1
+    return render_template('Results.html',
+        tscore=QuizResults.query.all()[-1], 
+        scores=QuizResults.query.all(),
+        histoData=histodata)
 
 @app.route("/add_score/<marks>")
 def addScrore(marks):

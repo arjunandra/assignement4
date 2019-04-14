@@ -43,7 +43,7 @@ def ManualPage():
 
 @app.route("/Quizzes")
 def QuizzesPage():
-    return render_template('Quizzes.html', scores=QuizResults.query.all())
+    return render_template('Quizzes.html')
 
 @app.route("/Procedure")
 def ProcedurePage():
@@ -60,7 +60,7 @@ def FeedbackPage():
 
 @app.route("/Results")
 def ResultPage():
-    return render_template('Results.html', tscore=QuizResults.query.all()[-1])
+    return render_template('Results.html', tscore=QuizResults.query.all()[-1], scores=QuizResults.query.all())
 
 @app.route("/add_score/<marks>")
 def addScrore(marks):

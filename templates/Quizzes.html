@@ -2,9 +2,187 @@
 {% block content %}
 
 <!-- BLOCK BEGINS HERE -->
-	<h1 class="text-h2-lightblue">Floating Point Numbers Representation</h1>
-	<div class="content" id="experiment-article-section-6-content"></div>					
-	<p>This section will be updated soon.</p>
+
+<style>
+.quizQ, .SubmitAnswers{
+	display : none;
+}
+.report{
+	display : none;
+}
+.ansLink{
+	font-size: 20px;
+	border: 1px solid green;
+	padding: 10px;
+	background-color: lightgreen;
+}
+.option{
+	padding: 10px;
+	margin: 0px;
+	border: 1px solid #ccc;
+}
+.atLeastOne{
+	color: red;
+	display: none;
+}
+</style>
+	<h1 style="color:#2C99CE">Quiz</h1>
+	<div class="content" id="experiment-article-section-6-content"></div>			
+	<p style="color:#2C99CE">choose the correct option, multiple choice </p>
+
+	<div class="container">
+		{% for i in range(10) %}
+		<div class="quizQ">
+			<h1>Question {{i+1}}: </h1>
+			<h2 id="Question{{i}}"> </h2>
+			<p class="option" id="option{{i}}1"></p>
+			<p class="option" id="option{{i}}2"></p>
+			<p class="option" id="option{{i}}3"></p>
+			<button class="btn btn-success" onclick="Makevis({{i+1}})">Next Question</button>
+		</div>
+		<p class="atLeastOne">Please select at least one Option</p>
+		{% endfor %}
+		<div class="SubmitAnswers">
+			<h2>You finished the Questions</h2>
+			<h2>Click below to evaluate your answers</h2>
+			<button class="btn btn-success" onclick="Evaluate()">Evaluate Questions</button>
+		</div>
+		{% for i in range(11)%}
+		<div class="report" id="report{{i}}">
+			<h2>Your answers have been evaluated</h2>
+			<h2>Click on the below link to view your answers</h2>
+			<a class="ansLink" href="{{ url_for('addScrore',marks=i) }}">View Report</a>
+		</div>
+		{% endfor %}
+	</div>
+<script>
+	var currentOption=0;
+	var UserAnswers=[];
+	const DomQuestions=document.querySelectorAll('.quizQ');
+	Questions=[
+		{
+			Question:"First Question",
+			Option1: "First Option",
+			Option2: "Second Option",
+			Option3: "Third Option",
+			Answer: 1
+		},
+		{
+			Question:"2 Question",
+			Option1: "First Option",
+			Option2: "Second Option",
+			Option3: "Third Option",
+			Answer: 1
+		},
+		{
+			Question:"3 Question",
+			Option1: "First Option",
+			Option2: "Second Option",
+			Option3: "Third Option",
+			Answer: 1
+		},
+		{
+			Question:"4 Question",
+			Option1: "First Option",
+			Option2: "Second Option",
+			Option3: "Third Option",
+			Answer: 1
+		},
+		{
+			Question:"First Question",
+			Option1: "First Option",
+			Option2: "Second Option",
+			Option3: "Third Option",
+			Answer: 1
+		},
+		{
+			Question:"5 Question",
+			Option1: "First Option",
+			Option2: "Second Option",
+			Option3: "Third Option",
+			Answer: 1
+		},
+		{
+			Question:"6 Question",
+			Option1: "First Option",
+			Option2: "Second Option",
+			Option3: "Third Option",
+			Answer: 1
+		},
+		{
+			Question:"7 Question",
+			Option1: "First Option",
+			Option2: "Second Option",
+			Option3: "Third Option",
+			Answer: 1
+		},
+		{
+			Question:"8 Question",
+			Option1: "First Option",
+			Option2: "Second Option",
+			Option3: "Third Option",
+			Answer: 1
+		},
+		{
+			Question:"9 Question",
+			Option1: "First Option",
+			Option2: "Second Option",
+			Option3: "Third Option",
+			Answer: 1
+		},
+		{
+			Question:"10 Question",
+			Option1: "First Option",
+			Option2: "Second Option",
+			Option3: "Third Option",
+			Answer: 1
+		}
+	];
+	DomQuestions[0].style.display="block";
+	Makevis = function(a){
+		if(currentOption!=0){
+			UserAnswers.push(currentOption);
+			document.querySelector('.atLeastOne').style.display="none";
+			currentOption=0; 
+			if(a==10){
+				DomQuestions[a-1].style.display="none";		
+				document.querySelector('.SubmitAnswers').style.display="block";
+			} else { 
+				DomQuestions[a].style.display="block"; 
+				DomQuestions[a-1].style.display="none"; 
+			} 
+		} else{
+			document.querySelector('.atLeastOne').style.display="block"; 
+		}
+	}
+	for(let i=0;i<10;i++){
+		for(let j=1;j<=3;j++){
+			if(j==1){
+				document.querySelector('#Question'+i).innerHTML=Questions[i].Question;
+				document.querySelector('#option'+i+'1').innerHTML=Questions[i].Option1;
+				document.querySelector('#option'+i+'2').innerHTML=Questions[i].Option2;
+				document.querySelector('#option'+i+'3').innerHTML=Questions[i].Option3;
+			}
+			document.querySelector('#option'+String(i)+String(j)).addEventListener('click',
+			e=>{
+				currentOption = j;
+				for(let k=1;k<=3;k++)
+					document.querySelector('#option'+String(i)+String(k))
+						.style.backgroundColor="white";
+				e.target.style.backgroundColor="lightgreen";
+			});
+		}
+	}
+	Evaluate=function(){
+		console.log(UserAnswers);
+		var Fmarks=0;
+		for(let i=0;i<10;i++)
+			if(UserAnswers[i]==Questions[i].Answer) Fmarks++;
+		console.log(Fmarks);
+		document.querySelector('#report'+Fmarks).style.display="block";
+		document.querySelector('.SubmitAnswers').style.display="none";
+	}
+</script>
 
 <!-- And ends here -->
 

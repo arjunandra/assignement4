@@ -73,8 +73,14 @@ li a:hover{
 .leftp{
     float: right;
 }
-body{
+.container{
     background-color: #eee;
+    padding-top: 10px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+body, .last10{
+    background-color: #ddd;
 }
 /* .sticky{
     position: fixed;
@@ -91,7 +97,6 @@ body{
         </ul>
     </nav>
     <div class="container">
-        <h1 class="space"> <br></h1>
         <h1>You Scored : {{ tscore }} &nbsp;</h1>
         <h2 class="celebrate">That is awesome!! you scored above average!!</h2>
         <h2 class="badscore">Could do better...</h2>
@@ -101,7 +106,7 @@ body{
         <hr>
     </div>
     <div class="container histo">
-        <h2>Histogram showing distribution of scores : </h2>
+        <h2>Histogram showing distribution of scores : </h2><hr>
         <div class="list-group-item scoredisplayu">Zero is at <span class="zeroPointer">&DownArrow;</span></div>
         {% for i in range(11) %}
             <div class="list-group-item scoredisplay" id="score{{i}}">score: {{i}} => {{ histoData[i] }}</div>
@@ -142,11 +147,11 @@ body{
     const badscore  = document.querySelectorAll('.badscore');
     const scoreDisplay = document.querySelectorAll('scoredisplay');
     const score= {{ tscore }};
-    const scores= {{ scores }}
+    const scores= {{ scores }};
     const histoData = {{histoData}};
     var Total=0
     var TotalLess=0
-    var maxWidth = histoData.reduce((a, b) => Math.max(a, b) );
+    var maxWidth = histoData.reduce((a, b) =>{ if(a<11&&b<11) Math.max(a, b) });
 
     console.log(score);
     console.log(scores);
@@ -188,7 +193,7 @@ body{
 
 // end of histogram
 // Calculated Total 
-    document.querySelector('#percentile').innerHTML=((TotalLess*100)/Total) + ' %ile';
+    document.querySelector('#percentile').innerHTML=((TotalLess*100)/Total) + '%ile';
 // end of Calculated Total
 </script>
 </html>

@@ -15,11 +15,9 @@ class QuizResults(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     score = db.Column(db.Integer)
 
-    #def __init__(self, score):
-    #    self.score=score;
-
     def __repr__(self):
         return f"{self.score}"
+
 
 @app.route("/")
 def IntroductionPage():
@@ -79,3 +77,4 @@ def addScrore(marks):
 
 if __name__ == '__main__':
     app.run(debug=True)
+    db.create_all()

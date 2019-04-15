@@ -90,9 +90,9 @@ body, .last10{
 <body>
     <nav class="sticky">
         <ul class="nul">
-            <li class="nli"><a>Homepage</a></li>
-            <li class="nli"><a id="about">Quizpage</a></li>
-            <li class="nli leftp"><a>Go back</a></li>
+            <li class="nli"><a href="{{ url_for('IntroductionPage') }}">Homepage</a></li>
+            <li class="nli"><a href="{{ url_for('QuizzesPage') }}" id="about">Quizpage</a></li>
+            <li class="nli leftp"><a href="{{ url_for('IntroductionPage') }}">Go back</a></li>
             <li></li>
         </ul>
     </nav>
@@ -124,15 +124,15 @@ body, .last10{
     <div class="container calcPerc">
         <h1><br></h1>
         <h2>Calculated Percentile: <span id="percentile"></span></h2>
-        <button type="button" class="btn btn-success">Return to Topic</button>
+        <a href="{{ url_for('IntroductionPage') }}" class="btn btn-success">Return to Topic</a>
         <h1><br></h1>
     </div>
     <nav class="sticky">
         <ul class="nul">
-            <li class="nli"><a>Homepage</a></li>
-            <li class="nli"><a>Quizpage</a></li>
-            <li class="nli leftp"><a>Go back</a></li>
-            <li></li>
+            <li class="nli"><a href="{{ url_for('IntroductionPage') }}">Homepage</a></li>
+            <li class="nli"><a href="{{ url_for('QuizzesPage') }}" id="about">Quizpage</a></li>
+            <li class="nli leftp"><a href="{{ url_for('IntroductionPage') }}">Go back</a></li>
+            <!-- <li></li> -->
         </ul>
     </nav>
 </body>
@@ -151,14 +151,14 @@ body, .last10{
     const histoData = {{histoData}};
     var Total=0
     var TotalLess=0
-    var maxWidth = histoData.reduce((a, b) =>{ if(a<11&&b<11) Math.max(a, b) });
+    var maxWidth = histoData.reduce((a, b) => Math.max(a, b) );
 
     console.log(score);
     console.log(scores);
     console.log('works fine!!!');
     console.log(maxWidth);
     let sum=0; 
-    scores.forEach(i=>sum+=i);
+    scores.forEach(i=>{ if(i>10) i=5; sum+=i; });
     const avg = parseInt(sum/scores.length);
 // end of utility functions 
 
@@ -174,7 +174,16 @@ body, .last10{
 
 // histogram
     var histoW=[]
-    range(11).forEach(i=>histoW.push((80*histoData[i])/maxWidth + 20));
+    for(let i=0;i<11;i++){
+        console.log('works');
+        console.log(maxWidth);
+        histoW.push((80*parseInt(histoData[i]))/maxWidth + 20);
+        console.log((histoData[i]*80)/maxWidth);
+    }
+    console.log(histoW);
+    range(11).forEach(i =>{
+            
+    });
     range(11).forEach(i=>{
         let tempRow = document.querySelector('#score'+i);
         if(i>score){
@@ -186,14 +195,16 @@ body, .last10{
         if(i==score){
             tempRow.style.borderColor="hotpink";
             let temptext = tempRow.innerHTML;
-            tempRow.innerHTML=temptext+' [YOUR SCORE] '
+            tempRow.innerHTML=temptext+' [YOUR SCORE] ';
         }
+        // console.log(histoW);
         tempRow.style.width=histoW[i]+'%';
+        // console.log(histoW[i]+'%');
     });
 
 // end of histogram
 // Calculated Total 
-    document.querySelector('#percentile').innerHTML=((TotalLess*100)/Total) + '%ile';
+    document.querySelector('#percentile').innerHTML=parseInt(((TotalLess*100)/Total)) + '%ile';
 // end of Calculated Total
 </script>
 </html>

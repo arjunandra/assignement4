@@ -25,12 +25,16 @@
 	color: red;
 	display: none;
 }
+.container{
+	padding-right: 80px;
+}
 </style>
-	<h1 style="color:#2C99CE">Quiz</h1>
-	<div class="content" id="experiment-article-section-6-content"></div>			
-	<p style="color:#2C99CE">choose the correct option, multiple choice </p>
-
+	
 	<div class="container">
+			<h1 style="color:#2C99CE">Quiz</h1>
+			<div class="content" id="experiment-article-section-6-content"></div>			
+			<p style="color:#2C99CE">choose the correct option, multiple choice </p>
+		
 		{% for i in range(10) %}
 		<div class="quizQ">
 			<h1>Question {{i+1}}: </h1>
@@ -61,80 +65,80 @@
 	const DomQuestions=document.querySelectorAll('.quizQ');
 	Questions=[
 		{
-			Question:"First Question",
-			Option1: "First Option",
-			Option2: "Second Option",
-			Option3: "Third Option",
+			Question:"The decimal value 0.5 in IEEE single precision floating point representation has",
+			Option1: "fraction bits of 000…000 and exponent value of 0",
+			Option2: "fraction bits of 000…000 and exponent value of −1",
+			Option3: "fraction bits of 100…000 and exponent value of 0",
+			Answer: 2
+		},
+		{
+			Question:"In the IEEE floating point representation, the hexadecimal value 0 × 00000000 corresponds to",
+			Option1: "the special value +0",
+			Option2: "the normalized value +0 ",
+			Option3: "the normalized value 2-127",
 			Answer: 1
 		},
 		{
-			Question:"2 Question",
-			Option1: "First Option",
-			Option2: "Second Option",
-			Option3: "Third Option",
+			Question:"The decimal value 0.25",
+			Option1: "is equivalent to the binary value 0.1",
+			Option2: "is equivalent to the binary value 0.01",
+			Option3: "is equivalent to the binary value 0.00111....",
+			Answer: 2
+		},
+		{
+			Question:"Sign extension is a step in",
+			Option1: "floating point multiplication",
+			Option2: "arithmetic left shift",
+			Option3: "converting a signed integer from one size to another",
+			Answer: 3
+		},
+		{
+			Question:"Zero has two representations in: a) Sign magnitude b) 1's complement c) 2's complement d) None of the above",
+			Option1: "Only a and c",
+			Option2: "Both a and b",
+			Option3: "d, none of the above",
+			Answer: 2
+		},
+		{
+			Question:"The following bit pattern represents a floating point number in IEEE 754 single precision format 1 10000011 101000000000000000000000 The value of the number in decimal form is",
+			Option1: "-10",
+			Option2: "-13",
+			Option3: "-26",
+			Answer: 3
+		},
+		{
+			Question:"The value of a float type variable is represented using the single-precision 32-bit floating point format IEEE-754 standard that uses 1 bit for sign, 8 bits for biased exponent and 23 bits for mantissa. A float type variable X is assigned the decimal value of −25.75. The representation of X in hexadecimal notation is",
+			Option1: "C1CE0000",
+			Option2: "C1CD0000",
+			Option3: "61CD0000",
 			Answer: 1
 		},
 		{
-			Question:"3 Question",
-			Option1: "First Option",
-			Option2: "Second Option",
-			Option3: "Third Option",
-			Answer: 1
+			Question:"In IEEE floating point representation, the hexadecimal number 0xC0000000 corresponds to",
+			Option1: "-3.0",
+			Option2: "-2.0",
+			Option3: "-1.0",
+			Answer: 2
 		},
 		{
-			Question:"4 Question",
-			Option1: "First Option",
-			Option2: "Second Option",
-			Option3: "Third Option",
-			Answer: 1
+			Question:"Which of the given number has its IEEE-754 32 bit floating point representation as 0 10000000 110 0000 0000 0000 0000 0000",
+			Option1: "2.5",
+			Option2: "3.5",
+			Option3: "4.5",
+			Answer: 2
 		},
 		{
-			Question:"First Question",
-			Option1: "First Option",
-			Option2: "Second Option",
-			Option3: "Third Option",
-			Answer: 1
+			Question:"In the standard IEEE 754 single precision floating point representation, there is 1 bit for sign, 23 bits for fraction and 8 bits for exponent. What is the precision in terms of the number of decimal digits?",
+			Option1: "5",
+			Option2: "6",
+			Option3: "7",
+			Answer: 3
 		},
 		{
-			Question:"5 Question",
-			Option1: "First Option",
-			Option2: "Second Option",
-			Option3: "Third Option",
-			Answer: 1
-		},
-		{
-			Question:"6 Question",
-			Option1: "First Option",
-			Option2: "Second Option",
-			Option3: "Third Option",
-			Answer: 1
-		},
-		{
-			Question:"7 Question",
-			Option1: "First Option",
-			Option2: "Second Option",
-			Option3: "Third Option",
-			Answer: 1
-		},
-		{
-			Question:"8 Question",
-			Option1: "First Option",
-			Option2: "Second Option",
-			Option3: "Third Option",
-			Answer: 1
-		},
-		{
-			Question:"9 Question",
-			Option1: "First Option",
-			Option2: "Second Option",
-			Option3: "Third Option",
-			Answer: 1
-		},
-		{
-			Question:"10 Question",
-			Option1: "First Option",
-			Option2: "Second Option",
-			Option3: "Third Option",
+			Question:"The IEEE-754 double-precision format to represent floating point numbers, has a length of _____ bits.",
+			Option1: "16",
+			Option2: "32",
+			Option3: "64",
 			Answer: 1
 		}
 	];
@@ -159,9 +163,9 @@
 		for(let j=1;j<=3;j++){
 			if(j==1){
 				document.querySelector('#Question'+i).innerHTML=Questions[i].Question;
-				document.querySelector('#option'+i+'1').innerHTML=Questions[i].Option1;
-				document.querySelector('#option'+i+'2').innerHTML=Questions[i].Option2;
-				document.querySelector('#option'+i+'3').innerHTML=Questions[i].Option3;
+				document.querySelector('#option'+i+'1').innerHTML='1. '+ Questions[i].Option1;
+				document.querySelector('#option'+i+'2').innerHTML='2. '+Questions[i].Option2;
+				document.querySelector('#option'+i+'3').innerHTML='3. '+Questions[i].Option3;
 			}
 			document.querySelector('#option'+String(i)+String(j)).addEventListener('click',
 			e=>{

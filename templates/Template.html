@@ -8,10 +8,7 @@
     <meta name="description" content="Welcome to Virtual Labs - A MHRD Govt of india Initiative">
     <meta name="author" content="Virtual Labs - A MHRD Govt of india Initiative">
     
-    <title>Welcome to Virtual Labs - A MHRD Govt of india Initiative</title>
-    
-     <link rel="shortcut icon" href="../../../images/favicon.ico">
-    
+    <title>Welcome to Virtual Labs - A MHRD Govt of india Initiative</title>    
  
     <link href="{{ url_for('static', filename='third-party/bootstrap-3.1.1-dist/css/bootstrap.min.css') }}" rel="stylesheet">
 
@@ -38,8 +35,8 @@
 			                    <span class="icon-bar" style="background-color: #77BB41"></span>
 			                    <span class="icon-bar" style="background-color: #77BB41"></span>
 			                    <span class="icon-bar" style="background-color: #77BB41"></span>
-			                </button>
-			                <a class="navbar-brand main-logo-a" href="http://vlabs.ac.in/index.html"><img src="../../../images/logo-new.png" class="img-responsive main-logo" /></a>
+			                </button> 
+			                <a class="navbar-brand main-logo-a" href="http://vlabs.ac.in/index.html"><img src="{{ url_for('static', filename='social/logo-new.png') }}" class="img-responsive main-logo" /></a>
 			            </div>			
 			                        
 			            <!-- Collect the nav links, forms, and other content for toggling -->
@@ -165,13 +162,13 @@ Home</a><br/></h2>
 
 			<div class="col-md-2 border-right-green-dotted" >
 				<h2 class="text-h2-lightblue-small" style="font-weight: bold;margin-top: 0px;"> Follow us</h2>
-				<a href="https://www.facebook.com/pages/Virtual-Labs-IIT-Delhi/301510159983871" class="text-a-lightgreen nounderline"   target="_blank"> <img src="../images/social/fb.png"  style="border-radius: 50%;"/> </a>
-				<a href="https://twitter.com/TheVirtualLabs" class="text-a-lightgreen nounderline"   target="_blank"> <img src="../images/social/twitter.png"  style="border-radius: 50%;"/></a>
-				<a href="http://linkedin.com" class="text-a-lightgreen nounderline"  target="_blank" > <img src="../images/social/linkedin.png" style="border-radius: 50%;" /></a>
+				<a href="https://www.facebook.com/pages/Virtual-Labs-IIT-Delhi/301510159983871" class="text-a-lightgreen nounderline"   target="_blank"> <img src="{{ url_for('static', filename='social/fb.png') }}"  style="border-radius: 50%;"/> </a>
+				<a href="https://twitter.com/TheVirtualLabs" class="text-a-lightgreen nounderline"   target="_blank"> <img src="{{ url_for('static', filename='social/twitter.png') }}"  style="border-radius: 50%;"/></a>
+				<a href="http://linkedin.com" class="text-a-lightgreen nounderline"  target="_blank" > <img src="{{ url_for('static', filename='social/linkedin.png') }}" style="border-radius: 50%;" /></a>
 				<a href="https://www.youtube.com/watch?v=mVBYNXLaDdg"
 				class="text-a-lightgreen nounderline"
 				target="_blank" >
-				<img src="../images/social/youtube.png"
+				<img src="{{ url_for('static', filename='social/youtube.png') }}"
 				style="border-radius: 50%; width: 38px;
 				height: 38px" /></a>
 
@@ -196,46 +193,5 @@ Home</a><br/></h2>
     
     <!-- Include js plugin -->
 	<script src="{{ url_for('static', filename='third-party/owl-carousel/owl.carousel.js') }}"></script>
-	
-	<script type="text/javascript">
-	$(document).ready(function() {
-		 
-		  var owl = $("#owl-demo");
-		  owl.owlCarousel({
-		      navigation: true,
-		      navigationText: [
-		                       "<img src='../../../images/left-arrow.png'>",
-		                       "<img src='../../../images/right-arrow.png'>"
-		                       ],
-		      /* autoPlay : 3000,
-		      stopOnHover : true */
-		  });
-		  
-		  //owl for partner institutions
-		  var owl = $("#owl-partner-institutions");
-		  owl.owlCarousel({
-		      navigation: true,
-		      navigationText: [
-		                       "<img src='../../../images/left-arrow.png'>",
-		                       "<img src='../../../images/right-arrow.png'>"
-		                       ],
-		      autoPlay : 3000,
-		      stopOnHover : true,
-		      items : 8,
-		  });
-		 
-		
-	
-	 //owl for aboutus
-	  var owl = $("#owl-aboutus");
-	  owl.owlCarousel({
-	      navigation: true,
-	      singleItem:true
-	  });
-	 
-	});
-
-	// script to select tab
-	</script>
 	
 </html>
